@@ -151,3 +151,50 @@ Stop here and wait for your test/validation. Phase 3 has not been started.
 
 ### Next action
 Stop here and wait for your test/validation. Phase 4 has not been started.
+
+---
+
+## Update
+2026-02-14 (Phase 4 implementation completed, Phase 5 not started)
+
+### What was implemented
+- Added PyTorch data pipeline:
+  - `src/pytorch/data.py`
+  - Implemented fixed split loading from `data/splits/`, train/val/test selection, dataset-specific augmentation, normalization using `configs/dataset_stats.yaml`, and DataLoader construction.
+  - Enforced required DataLoader defaults for training/eval:
+    - `num_workers=8`, `pin_memory=True`, `persistent_workers=True`, `prefetch_factor=2` (when workers > 0)
+    - `drop_last=True` only for train; `drop_last=False` for val/test.
+  - Added Tiny-ImageNet grayscale-safe RGB expansion logic.
+- Added Keras data pipeline:
+  - `src/keras/data.py`
+  - Implemented matching split loading, preprocessing, and `tf.data` pipeline with:
+    - `map(..., num_parallel_calls=tf.data.AUTOTUNE)`
+    - `prefetch(tf.data.AUTOTUNE)`
+    - `shuffle(...)` for train only
+    - `batch(..., drop_remainder=True)` for train and `drop_remainder=False` for val/test.
+  - Added Tiny-ImageNet grayscale-safe RGB expansion logic.
+- Updated package exports:
+  - `src/pytorch/__init__.py`
+  - `src/keras/__init__.py`
+
+### Validation run status
+- Ran with required environment:
+  - `source ~/envs/my_jupyter_env/bin/activate`
+- Syntax checks passed:
+  - `python -m py_compile src/pytorch/data.py src/keras/data.py src/pytorch/__init__.py src/keras/__init__.py`
+- Executed Phase 4 verification script (sandbox-limited fallback used `num_workers=0` only for this validation run due multiprocessing semaphore permission limits).
+- Validation checks passed:
+  - CIFAR-10: train/val counts = 45,000 / 5,000.
+  - CIFAR-100: train/val counts = 45,000 / 5,000.
+  - Tiny-ImageNet: train/val counts = 90,000 / 10,000.
+  - Batch shapes:
+    - PyTorch train batch: `(256, 3, 32, 32)` for CIFAR, `(256, 3, 64, 64)` for Tiny-ImageNet.
+    - Keras train batch: `(256, 32, 32, 3)` for CIFAR, `(256, 64, 64, 3)` for Tiny-ImageNet.
+  - Normalized value ranges observed in first train batch were within expected rough bounds (about `[-2, 2.2]`).
+  - Cross-framework key consistency test (same CIFAR-10 val image, no augmentation):
+    - max absolute pixel diff after normalization = `0.0` (< `1e-5`).
+  - Tiny-ImageNet grayscale expansion spot check:
+    - Found gray-like sample and confirmed shape `(64, 64, 3)`.
+
+### Next action
+Stop here and wait for your test/validation. Phase 5 has not been started.
