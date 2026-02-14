@@ -53,19 +53,19 @@ def validate_split(indices_train: np.ndarray, indices_val: np.ndarray, total_siz
 
 
 def compute_mean_std(images_uint8: np.ndarray) -> tuple[list[float], list[float]]:
-    x = images_uint8.astype(np.float32) / 255.0
-    mean = x.mean(axis=(0, 1, 2))
-    std = x.std(axis=(0, 1, 2))
+    x = images_uint8.astype(np.float64) / 255.0  # float64 !
+    mean = x.mean(axis=(0, 1, 2), dtype=np.float64)
+    std = x.std(axis=(0, 1, 2), dtype=np.float64)
     return mean.tolist(), std.tolist()
 
 
 def check_normalization(images_uint8: np.ndarray, mean: Iterable[float], std: Iterable[float]) -> None:
-    x = images_uint8.astype(np.float32) / 255.0
-    mean_arr = np.asarray(mean, dtype=np.float32).reshape(1, 1, 1, 3)
-    std_arr = np.asarray(std, dtype=np.float32).reshape(1, 1, 1, 3)
+    x = images_uint8.astype(np.float64) / 255.0  # float64 !
+    mean_arr = np.asarray(mean, dtype=np.float64).reshape(1, 1, 1, 3)
+    std_arr = np.asarray(std, dtype=np.float64).reshape(1, 1, 1, 3)
     z = (x - mean_arr) / std_arr
-    z_mean = z.mean(axis=(0, 1, 2))
-    z_std = z.std(axis=(0, 1, 2))
+    z_mean = z.mean(axis=(0, 1, 2), dtype=np.float64)
+    z_std = z.std(axis=(0, 1, 2), dtype=np.float64)
     if not np.all(np.abs(z_mean) < 5e-3):
         raise RuntimeError(f"Standardized mean too far from 0: {z_mean}")
     if not np.all(np.abs(z_std - 1.0) < 5e-3):
@@ -284,6 +284,9 @@ def main() -> None:
     c10_mean, c10_std = compute_mean_std(x10_train[c10_train_idx])
     c100_mean, c100_std = compute_mean_std(x100_train[c100_train_idx])
     tiny_mean, tiny_std = compute_mean_std(tiny_train_x[tiny_train_idx])
+    # Debugging: Check the mean and std of tiny_train_x before normalization
+    print("[Debug] tiny_train_x mean:", tiny_train_x.mean(axis=(0, 1, 2)))
+    print("[Debug] tiny_train_x std:", tiny_train_x.std(axis=(0, 1, 2)))
     check_normalization(x10_train[c10_train_idx], c10_mean, c10_std)
     check_normalization(x100_train[c100_train_idx], c100_mean, c100_std)
     check_normalization(tiny_train_x[tiny_train_idx], tiny_mean, tiny_std)
