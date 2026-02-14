@@ -86,3 +86,28 @@ Phase 1 can continue immediately once dataset files are provided locally:
 - Tiny-ImageNet accepted as either:
   - `data/tiny_imagenet_{train,test}_{images,labels}.npy`, or
   - extracted folder `data/tiny-imagenet-200/` (official structure with `train/`, `val/`, `wnids.txt`)
+
+---
+
+## Update
+2026-02-14 (Phase 2 implementation completed, Phase 3 not started)
+
+### What was implemented
+- Added `configs/train_config.yaml` for Step 2.1 with required sections:
+  - `optimizer`, `lr`, `training`, `epochs`, `augmentation`, `input_size`
+- Added `configs/experiment_matrix.yaml` for Step 2.2 with required matrices:
+  - `stage1` and `stage2` (datasets/models/precisions/seeds/frameworks)
+
+### Validation run status
+- Ran validation with required environment:
+  - `source ~/envs/my_jupyter_env/bin/activate`
+- YAML parse checks passed for:
+  - `configs/train_config.yaml`
+  - `configs/experiment_matrix.yaml`
+  - existing `configs/dataset_stats.yaml`
+- Combination count checks:
+  - Stage 1: `2 * 2 * 1 * 3 * 2 = 24`
+  - Stage 2: `3 * 3 * 2 * 5 * 2 = 180`
+
+### Next action
+Stop here and wait for your test/validation. Phase 3 has not been started.

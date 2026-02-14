@@ -1,0 +1,42 @@
+optimizer:
+  type: SGD
+  momentum: 0.9
+  nesterov: true
+  weight_decay: 1e-4
+  # Note: PyTorch weight_decay is L2 regularization, while Keras uses decoupled weight decay.
+  # Keep native framework behavior and document the difference in the report.
+
+lr:
+  base_lr: 0.1
+  base_batch_size: 256
+  scheduler: cosine
+  eta_min: 0.0
+  warmup_epochs: 5
+  warmup_start_lr: 0.0
+  warmup_mode: per_step
+
+training:
+  batch_size: 256
+  gradient_accumulation_steps: 1
+  loss: cross_entropy
+
+epochs:
+  cifar10: 200
+  cifar100: 200
+  tiny_imagenet: 100
+
+augmentation:
+  cifar:
+    random_crop:
+      size: 32
+      padding: 4
+    random_horizontal_flip: true
+  tiny_imagenet:
+    random_crop:
+      size: 64
+      padding: 8
+    random_horizontal_flip: true
+
+input_size:
+  cifar: 32
+  tiny_imagenet: 64

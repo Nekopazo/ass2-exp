@@ -284,9 +284,7 @@ def main() -> None:
     c10_mean, c10_std = compute_mean_std(x10_train[c10_train_idx])
     c100_mean, c100_std = compute_mean_std(x100_train[c100_train_idx])
     tiny_mean, tiny_std = compute_mean_std(tiny_train_x[tiny_train_idx])
-    # Debugging: Check the mean and std of tiny_train_x before normalization
-    print("[Debug] tiny_train_x mean:", tiny_train_x.mean(axis=(0, 1, 2)))
-    print("[Debug] tiny_train_x std:", tiny_train_x.std(axis=(0, 1, 2)))
+
     check_normalization(x10_train[c10_train_idx], c10_mean, c10_std)
     check_normalization(x100_train[c100_train_idx], c100_mean, c100_std)
     check_normalization(tiny_train_x[tiny_train_idx], tiny_mean, tiny_std)
