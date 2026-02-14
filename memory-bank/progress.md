@@ -246,3 +246,39 @@ Stop here and wait for your test/validation. Phase 5 has not been started.
 ### Notes
 - In current runtime context, CUDA device is still not available due driver/runtime mismatch; full 3-epoch validation runs from Step 5.1/5.2 and LR/AMP benchmark validations (Steps 5.3/5.4) are prepared but not fully executed here.
 - Stopped at Phase 5 implementation as requested. Phase 6 has not been started.
+
+---
+
+## Update
+2026-02-14 (Phase 6 implementation completed, Phase 7 not started)
+
+### What was implemented
+- Added single-run summary extractor:
+  - `scripts/extract_run_summary.py`
+  - Reads one epoch-level CSV log and matching `_test.json`, then outputs one summary row with fields:
+    - `framework, dataset, model, precision, seed`
+    - `acc_best, f1_best`
+    - `test_accuracy, test_macro_f1`
+    - `epoch_best`
+    - `time_per_epoch_avg, time_per_epoch_avg_late`
+    - `images_per_sec_avg, images_per_sec_avg_late`
+  - Throughput calculation follows plan rule:
+    - `images_per_sec = (floor(train_size / batch_size) * batch_size) / epoch_time_seconds`
+    - Uses `batch_size` from `configs/train_config.yaml`, with train sizes:
+      - CIFAR-10/100: 45,000
+      - Tiny-ImageNet: 90,000
+- Added full aggregation script:
+  - `scripts/aggregate_results.py`
+  - Scans `logs/` for training CSV logs, applies Step 6.1 summary logic per file, writes `results/results.csv`.
+
+### Validation run status
+- Ran with required environment:
+  - `source ~/envs/my_jupyter_env/bin/activate`
+- Syntax checks passed:
+  - `python -m py_compile scripts/extract_run_summary.py scripts/aggregate_results.py`
+- Functional validation passed with sample 3-epoch logs:
+  - Step 6.1 check: extractor returned complete fields and reasonable values.
+  - Step 6.2 check: aggregator produced one row per CSV log and correct column set.
+
+### Next action
+Stop here and wait for your test/validation. Phase 7 has not been started.
