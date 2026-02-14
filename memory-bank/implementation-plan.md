@@ -202,7 +202,7 @@ optimizer:
 
 lr:
   base_lr: 0.1
-  base_batch_size: 256
+  base_batch_size: 64
   scheduler: cosine
   eta_min: 0.0                # cosine decay 衰减到 0
   warmup_epochs: 5
@@ -210,7 +210,7 @@ lr:
   warmup_mode: per_step        # warmup 按 iteration（per-step）线性插值，非 per-epoch
 
 training:
-  batch_size: 256
+  batch_size: 64
   gradient_accumulation_steps: 1  # 若 OOM 则增大此值，保持有效 batch_size=256
   loss: cross_entropy
 

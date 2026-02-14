@@ -198,3 +198,51 @@ Stop here and wait for your test/validation. Phase 4 has not been started.
 
 ### Next action
 Stop here and wait for your test/validation. Phase 5 has not been started.
+
+---
+
+## Update
+2026-02-14 (Phase 5 implementation started and completed for code delivery, Phase 6 not started)
+
+### What was implemented
+- Added shared training utilities for cross-framework consistency:
+  - `src/common/training.py`
+  - `src/common/__init__.py`
+  - Includes dataset metadata helpers, optimizer-step calculation for gradient accumulation, and a shared per-step warmup+cosine LR schedule.
+- Added PyTorch training loop:
+  - `src/pytorch/train.py`
+  - Supports CLI args: `--dataset --model --precision --seed --config` (plus `--epochs_override --num_workers` for controlled validation runs).
+  - Implements:
+    - seed setup (Python/NumPy/PyTorch/CUDA), cuDNN deterministic settings
+    - SGD (momentum/nesterov/weight_decay)
+    - per-step warmup + cosine LR with `T_max = total_steps - warmup_steps`
+    - FP32/AMP (`torch.cuda.amp`)
+    - gradient accumulation with loss scaling by `gradient_accumulation_steps`
+    - epoch logging (`train_loss`, `train_accuracy`, `val_loss`, `val_accuracy`, `val_macro_f1`, `epoch_time_seconds`, `learning_rate`)
+    - best checkpoint selection by `val_accuracy` and save to `logs/checkpoints/*.pt`
+    - best-checkpoint test evaluation and JSON save to `logs/*_test.json`
+- Added Keras custom training loop:
+  - `src/keras/train.py`
+  - Implements same CLI and metrics protocol as PyTorch.
+  - Uses `tf.GradientTape` custom loop (not `model.fit`) with:
+    - deterministic setup (`enable_op_determinism`)
+    - SGD hyperparameter alignment
+    - shared per-step warmup + cosine LR behavior
+    - FP32/AMP (`tf.keras.mixed_precision` + `LossScaleOptimizer`)
+    - gradient accumulation with loss divided by accumulation steps
+    - best-checkpoint selection by `val_accuracy`, checkpoint save to `logs/checkpoints/*.h5`, reload, and test evaluation output to `logs/*_test.json`
+
+### Validation run status
+- Ran with required environment:
+  - `source ~/envs/my_jupyter_env/bin/activate`
+- Syntax checks passed:
+  - `python -m py_compile src/common/__init__.py src/common/training.py src/pytorch/train.py src/keras/train.py`
+- Runtime smoke checks passed:
+  - Shared LR schedule key points verified (`step 0 = 0`, warmup/cosine transition values correct)
+  - One-step PyTorch training smoke run on CIFAR-10 completed
+  - One-step Keras training smoke run on CIFAR-10 completed
+  - Keras `.h5` checkpoint save/load roundtrip verified with model containing modified layers
+
+### Notes
+- In current runtime context, CUDA device is still not available due driver/runtime mismatch; full 3-epoch validation runs from Step 5.1/5.2 and LR/AMP benchmark validations (Steps 5.3/5.4) are prepared but not fully executed here.
+- Stopped at Phase 5 implementation as requested. Phase 6 has not been started.
