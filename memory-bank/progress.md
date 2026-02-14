@@ -111,3 +111,43 @@ Phase 1 can continue immediately once dataset files are provided locally:
 
 ### Next action
 Stop here and wait for your test/validation. Phase 3 has not been started.
+
+---
+
+## Update
+2026-02-14 (Phase 3 implementation completed, Phase 4 not started)
+
+### What was implemented
+- Added PyTorch model builders:
+  - `src/pytorch/models.py`
+  - Implemented `mobilenetv2`, `resnet50`, `convnext_tiny` with required CIFAR/Tiny stem adjustments and dataset-specific classifier heads.
+- Added Keras model builders:
+  - `src/keras/models.py`
+  - Implemented `MobileNetV2`, `ResNet50`, `ConvNeXtTiny` with required CIFAR/Tiny stem adjustments and dataset-specific classifier heads.
+- Added package init files for imports:
+  - `src/__init__.py`
+  - `src/pytorch/__init__.py`
+  - `src/keras/__init__.py`
+- Added Phase 3.7 parameter-comparison generator:
+  - `scripts/generate_param_comparison.py`
+  - Generates `results/param_comparison.csv` and validates model forward shape checks and parameter-diff thresholds.
+
+### Validation run status
+- Ran with required environment:
+  - `source ~/envs/my_jupyter_env/bin/activate`
+- Syntax checks passed:
+  - `python -m py_compile src/pytorch/models.py src/keras/models.py scripts/generate_param_comparison.py`
+- Executed:
+  - `python scripts/generate_param_comparison.py`
+- Output generated:
+  - `results/param_comparison.csv` with 18 rows (3 models × 2 input sizes × 3 class counts)
+- Validation checks passed:
+  - Forward output shape checks all passed for both frameworks.
+  - ResNet-50 Tiny path check passed: pre-global-pool feature map is 4x4.
+  - Parameter diff thresholds passed:
+    - MobileNetV2: max diff_pct = 0.0%
+    - ResNet-50: max diff_pct = 0.112921% (<1%)
+    - ConvNeXt-Tiny: max diff_pct = 0.012421% (<5%)
+
+### Next action
+Stop here and wait for your test/validation. Phase 4 has not been started.
