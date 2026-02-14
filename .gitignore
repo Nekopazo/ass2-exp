@@ -1,0 +1,16 @@
+# 忽略所有 .npy 文件
+*.npy
+
+# 忽略所有图片文件
+*.jpg
+*.jpeg
+*.png
+
+# 忽略所有压缩文件
+*.zip
+*.tar.gz
+*.rar
+
+# 忽略特定文件夹
+data/
+outputs/
