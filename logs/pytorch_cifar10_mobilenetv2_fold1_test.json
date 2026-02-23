@@ -1,0 +1,13 @@
+{
+  "framework": "pytorch",
+  "dataset": "cifar10",
+  "model": "mobilenetv2",
+  "fold": 1,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 28,
+  "val_accuracy_best": 0.9581875,
+  "test_loss": 0.18976673567295074,
+  "test_accuracy": 0.9524166666666667,
+  "test_macro_f1": 0.9523328187999361,
+  "epochs_trained": 30
+}

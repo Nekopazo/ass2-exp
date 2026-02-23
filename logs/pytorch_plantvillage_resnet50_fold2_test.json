@@ -1,0 +1,13 @@
+{
+  "framework": "pytorch",
+  "dataset": "plantvillage",
+  "model": "resnet50",
+  "fold": 2,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 28,
+  "val_accuracy_best": 0.9982735998895104,
+  "test_loss": 0.00872802563490919,
+  "test_accuracy": 0.9979744038302182,
+  "test_macro_f1": 0.996798926194164,
+  "epochs_trained": 30
+}

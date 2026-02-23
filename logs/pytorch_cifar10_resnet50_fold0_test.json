@@ -1,0 +1,13 @@
+{
+  "framework": "pytorch",
+  "dataset": "cifar10",
+  "model": "resnet50",
+  "fold": 0,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 1,
+  "val_accuracy_best": 0.9196875,
+  "test_loss": 0.23219074877103169,
+  "test_accuracy": 0.91875,
+  "test_macro_f1": 0.9188140123666795,
+  "epochs_trained": 8
+}

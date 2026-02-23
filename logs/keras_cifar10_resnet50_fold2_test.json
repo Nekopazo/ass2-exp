@@ -1,0 +1,13 @@
+{
+  "framework": "keras",
+  "dataset": "cifar10",
+  "model": "resnet50",
+  "fold": 2,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 27,
+  "val_accuracy_best": 0.957,
+  "test_loss": 0.18531232096751532,
+  "test_accuracy": 0.9584166666666667,
+  "test_macro_f1": 0.9583611590561315,
+  "epochs_trained": 30
+}

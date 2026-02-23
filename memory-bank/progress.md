@@ -282,3 +282,38 @@ Stop here and wait for your test/validation. Phase 5 has not been started.
 
 ### Next action
 Stop here and wait for your test/validation. Phase 7 has not been started.
+
+---
+
+## Update
+2026-02-14 (Phase 7 implementation started; Step 7.1 completed, Step 7.2/7.3 ready but not fully executed)
+
+### What was implemented
+- Added Stage 1 launcher script:
+  - `scripts/run_stage1.sh`
+  - Covers required Stage 1 matrix combinations:
+    - frameworks: `keras`, `pytorch`
+    - datasets: `cifar10`, `cifar100`
+    - models: `resnet50`, `mobilenetv2`
+    - precisions: `fp32`
+    - seeds: `42`, `123`, `456`
+  - Supports:
+    - command listing mode: `--list-only`
+    - full execution mode (default) over all generated commands
+    - strict count check (`24` commands), exits with error if mismatch
+  - Optional override for PyTorch workers via env var `NUM_WORKERS`.
+
+### Validation run status
+- Ran with required environment:
+  - `source ~/envs/my_jupyter_env/bin/activate`
+- Syntax validation passed:
+  - `bash -n scripts/run_stage1.sh`
+- Command coverage validation passed:
+  - `bash scripts/run_stage1.sh --list-only`
+  - printed `stage1_total_commands=24`
+
+### Notes
+- Full Step 7.2 (24 long training runs) was not launched in this implementation pass.
+- Step 7.3 aggregation path is ready with existing script:
+  - `python scripts/aggregate_results.py --output results/results_stage1.csv`
+- As requested, Phase 8 has not been started.

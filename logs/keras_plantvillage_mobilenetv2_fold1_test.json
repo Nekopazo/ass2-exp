@@ -1,0 +1,13 @@
+{
+  "framework": "keras",
+  "dataset": "plantvillage",
+  "model": "mobilenetv2",
+  "fold": 1,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 2,
+  "val_accuracy_best": 0.6576893860921207,
+  "test_loss": 1.5183755088034678,
+  "test_accuracy": 0.6581346100727373,
+  "test_macro_f1": 0.567087185241147,
+  "epochs_trained": 9
+}

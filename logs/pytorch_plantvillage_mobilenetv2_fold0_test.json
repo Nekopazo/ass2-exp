@@ -1,0 +1,13 @@
+{
+  "framework": "pytorch",
+  "dataset": "plantvillage",
+  "model": "mobilenetv2",
+  "fold": 0,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 27,
+  "val_accuracy_best": 0.9977213092114349,
+  "test_loss": 0.01108365138896971,
+  "test_accuracy": 0.9969616057453273,
+  "test_macro_f1": 0.9958945966407696,
+  "epochs_trained": 30
+}

@@ -1,0 +1,13 @@
+{
+  "framework": "pytorch",
+  "dataset": "cifar10",
+  "model": "vgg16",
+  "fold": 1,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 29,
+  "val_accuracy_best": 0.9609375,
+  "test_loss": 0.1989232852458954,
+  "test_accuracy": 0.9579166666666666,
+  "test_macro_f1": 0.9578433367087376,
+  "epochs_trained": 30
+}

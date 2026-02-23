@@ -1,0 +1,13 @@
+{
+  "framework": "pytorch",
+  "dataset": "plantvillage",
+  "model": "vgg16",
+  "fold": 1,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 28,
+  "val_accuracy_best": 0.9973758718320558,
+  "test_loss": 0.010747934710236976,
+  "test_accuracy": 0.9976981861707025,
+  "test_macro_f1": 0.9963864809524132,
+  "epochs_trained": 30
+}

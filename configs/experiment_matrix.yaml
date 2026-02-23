@@ -1,13 +1,15 @@
-stage1:
-  datasets: [cifar10, cifar100]
-  models: [resnet50, mobilenetv2]
-  precisions: [fp32]
-  seeds: [42, 123, 456]
-  frameworks: [keras, pytorch]
-
-stage2:
-  datasets: [cifar10, cifar100, tiny_imagenet]
-  models: [resnet50, mobilenetv2, convnext_tiny]
-  precisions: [fp32, amp]
-  seeds: [42, 123, 456, 789, 1024]
-  frameworks: [keras, pytorch]
+dataset: plantvillage
+folds:
+- 0
+- 1
+- 2
+frameworks:
+- keras
+- pytorch
+models:
+- resnet50
+- vgg16
+- mobilenetv2
+name: PlantVillage 迁移学习 — Keras vs PyTorch Benchmark
+total_runs: 18
+transfer_learning: true

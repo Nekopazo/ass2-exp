@@ -1,0 +1,13 @@
+{
+  "framework": "keras",
+  "dataset": "cifar10",
+  "model": "mobilenetv2",
+  "fold": 0,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 1,
+  "val_accuracy_best": 0.4795,
+  "test_loss": 1.6620217056274413,
+  "test_accuracy": 0.4776666666666667,
+  "test_macro_f1": 0.4749520387331937,
+  "epochs_trained": 8
+}

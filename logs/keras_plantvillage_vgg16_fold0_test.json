@@ -1,0 +1,13 @@
+{
+  "framework": "keras",
+  "dataset": "plantvillage",
+  "model": "vgg16",
+  "fold": 0,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 28,
+  "val_accuracy_best": 0.9935782350504074,
+  "test_loss": 0.027127162510924122,
+  "test_accuracy": 0.9934628487247952,
+  "test_macro_f1": 0.9917998357936595,
+  "epochs_trained": 29
+}

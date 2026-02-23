@@ -1,0 +1,13 @@
+{
+  "framework": "keras",
+  "dataset": "plantvillage",
+  "model": "resnet50",
+  "fold": 2,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 29,
+  "val_accuracy_best": 0.9961328637525033,
+  "test_loss": 0.02227088244500347,
+  "test_accuracy": 0.994475646809686,
+  "test_macro_f1": 0.9930059049854737,
+  "epochs_trained": 30
+}

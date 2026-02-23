@@ -1,0 +1,13 @@
+{
+  "framework": "keras",
+  "dataset": "cifar10",
+  "model": "vgg16",
+  "fold": 2,
+  "transfer_learning": true,
+  "best_epoch_by_val_accuracy": 28,
+  "val_accuracy_best": 0.9395625,
+  "test_loss": 0.2971768834590912,
+  "test_accuracy": 0.93975,
+  "test_macro_f1": 0.939603118804488,
+  "epochs_trained": 30
+}
